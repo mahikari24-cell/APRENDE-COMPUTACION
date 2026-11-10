@@ -1,0 +1,731 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Aprende Computación</title>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: #eef4ff;
+    color: #24334d;
+    padding: 15px;
+}
+
+.app {
+    max-width: 430px;
+    min-height: 90vh;
+    margin: auto;
+    background: white;
+    border-radius: 25px;
+    overflow: hidden;
+    box-shadow: 0 5px 25px #a9b9d4;
+}
+
+header {
+    background: linear-gradient(135deg, #1261d6, #063b91);
+    color: white;
+    padding: 25px 18px;
+    text-align: center;
+}
+
+header h1 {
+    font-size: 25px;
+    margin-bottom: 8px;
+}
+
+header p {
+    font-size: 14px;
+}
+
+main {
+    padding: 18px;
+}
+
+h2 {
+    color: #1254ad;
+    margin-bottom: 15px;
+    font-size: 21px;
+}
+
+.intro {
+    background: #e8f2ff;
+    padding: 18px;
+    border-radius: 16px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.computer {
+    font-size: 75px;
+    margin: 10px;
+}
+
+.menu {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 22px;
+}
+
+.menu button {
+    background: #1765d1;
+    color: white;
+    border: none;
+    border-radius: 13px;
+    padding: 16px 8px;
+    font-size: 15px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.menu button:hover {
+    background: #084394;
+}
+
+.section {
+    display: none;
+}
+
+.section.active {
+    display: block;
+}
+
+.parts {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+}
+
+.part {
+    background: #f0f6ff;
+    border: 2px solid #d7e6ff;
+    border-radius: 15px;
+    padding: 15px 8px;
+    text-align: center;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.part:hover {
+    transform: translateY(-3px);
+    background: #dceaff;
+}
+
+.part .emoji {
+    font-size: 43px;
+    display: block;
+    margin-bottom: 8px;
+}
+
+.part h3 {
+    color: #124d9e;
+    font-size: 16px;
+}
+
+.part p {
+    font-size: 12px;
+    margin-top: 5px;
+}
+
+.detail {
+    background: #e8f2ff;
+    padding: 20px;
+    border-radius: 15px;
+    margin-top: 15px;
+    text-align: center;
+    display: none;
+}
+
+.detail .big {
+    font-size: 65px;
+}
+
+.detail h3 {
+    color: #1254ad;
+    margin: 10px;
+}
+
+.detail p {
+    line-height: 1.5;
+}
+
+.info {
+    background: #f0f6ff;
+    padding: 17px;
+    border-radius: 15px;
+    margin-bottom: 12px;
+    line-height: 1.6;
+}
+
+.info h3 {
+    color: #1458b1;
+    margin-bottom: 7px;
+}
+
+.question {
+    background: #f0f6ff;
+    padding: 18px;
+    border-radius: 15px;
+    margin-bottom: 15px;
+}
+
+.question h3 {
+    font-size: 16px;
+    margin-bottom: 12px;
+}
+
+.answer {
+    width: 100%;
+    padding: 12px;
+    margin: 5px 0;
+    border: 1px solid #b9cce8;
+    background: white;
+    border-radius: 10px;
+    text-align: left;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.answer:hover {
+    background: #dceaff;
+}
+
+.answer.correct {
+    background: #c9f4d6;
+    border-color: #28a75a;
+}
+
+.answer.wrong {
+    background: #ffd5d5;
+    border-color: #df4c4c;
+}
+
+.action {
+    background: #1261d6;
+    color: white;
+    padding: 13px 20px;
+    border: none;
+    border-radius: 12px;
+    font-size: 15px;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 12px;
+}
+
+.action:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+#result {
+    text-align: center;
+    padding: 20px;
+    font-size: 18px;
+    font-weight: bold;
+    color: #1261d6;
+}
+
+.progress {
+    background: #dce5f3;
+    height: 12px;
+    border-radius: 20px;
+    margin: 12px 0;
+    overflow: hidden;
+}
+
+.progress-bar {
+    background: #19a85a;
+    width: 0%;
+    height: 100%;
+    transition: 0.3s;
+}
+
+footer {
+    background: #073b85;
+    color: white;
+    text-align: center;
+    padding: 17px;
+    font-size: 13px;
+}
+
+.back {
+    background: #64748b;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 10px;
+    cursor: pointer;
+    margin-bottom: 15px;
+}
+
+@media(max-width:350px) {
+    .parts {
+        grid-template-columns: 1fr;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="app">
+
+<header>
+    <h1>💻 Aprende Computación</h1>
+    <p>¡Descubre las partes de la computadora!</p>
+</header>
+
+<main>
+
+<!-- INICIO -->
+<section id="inicio" class="section active">
+
+    <div class="intro">
+        <div class="computer">🖥️</div>
+        <h2>¡Bienvenido estudiante!</h2>
+        <p>
+            Aprende de manera fácil y divertida
+            las partes de una computadora y
+            descubre para qué sirve cada una.
+        </p>
+    </div>
+
+    <h2>¿Qué deseas aprender?</h2>
+
+    <div class="menu">
+        <button onclick="mostrar('partes')">🖥️<br>Partes</button>
+        <button onclick="mostrar('funciones')">📚<br>Funciones</button>
+        <button onclick="mostrar('evaluacion')">📝<br>Evaluación</button>
+        <button onclick="mostrar('consejos')">💡<br>Consejos</button>
+    </div>
+
+    <div class="info">
+        <h3>🎯 Nuestro objetivo</h3>
+        <p>
+            Conocer los componentes principales
+            de una computadora, aprender sus
+            funciones y utilizar correctamente
+            los equipos tecnológicos.
+        </p>
+    </div>
+
+</section>
+
+<!-- PARTES -->
+<section id="partes" class="section">
+
+    <button class="back" onclick="mostrar('inicio')">← Volver</button>
+
+    <h2>🖥️ Partes de la computadora</h2>
+    <p style="margin-bottom:15px">
+        Toca cada elemento para conocerlo.
+    </p>
+
+    <div class="parts">
+
+        <div class="part" onclick="detalle('Monitor','🖥️','Es la pantalla de la computadora. Permite observar imágenes, videos, textos y toda la información que muestra el equipo.','Salida')">
+            <span class="emoji">🖥️</span>
+            <h3>Monitor</h3>
+            <p>Muestra información</p>
+        </div>
+
+        <div class="part" onclick="detalle('Teclado','⌨️','Es un dispositivo que permite escribir letras, números, símbolos y dar instrucciones a la computadora.','Entrada')">
+            <span class="emoji">⌨️</span>
+            <h3>Teclado</h3>
+            <p>Permite escribir</p>
+        </div>
+
+        <div class="part" onclick="detalle('Mouse','🖱️','Es un dispositivo que permite mover el puntero, seleccionar elementos, abrir programas y hacer clic.','Entrada')">
+            <span class="emoji">🖱️</span>
+            <h3>Mouse</h3>
+            <p>Permite seleccionar</p>
+        </div>
+
+        <div class="part" onclick="detalle('CPU','🖥️','La CPU o procesador ejecuta instrucciones y procesa datos. Se encuentra dentro del equipo. Muchas personas llaman CPU a la torre o gabinete de la computadora.','Procesamiento')">
+            <span class="emoji">🖥️</span>
+            <h3>CPU</h3>
+            <p>Procesa información</p>
+        </div>
+
+        <div class="part" onclick="detalle('Impresora','🖨️','Es un dispositivo que permite imprimir documentos, fotografías y trabajos en papel.','Salida')">
+            <span class="emoji">🖨️</span>
+            <h3>Impresora</h3>
+            <p>Imprime documentos</p>
+        </div>
+
+        <div class="part" onclick="detalle('Parlantes','🔊','Son dispositivos que reproducen sonidos, música, voces y otros audios de la computadora.','Salida')">
+            <span class="emoji">🔊</span>
+            <h3>Parlantes</h3>
+            <p>Reproducen sonidos</p>
+        </div>
+
+        <div class="part" onclick="detalle('Micrófono','🎤','Permite ingresar nuestra voz y otros sonidos a la computadora.','Entrada')">
+            <span class="emoji">🎤</span>
+            <h3>Micrófono</h3>
+            <p>Graba nuestra voz</p>
+        </div>
+
+        <div class="part" onclick="detalle('Cámara web','📷','Permite capturar imágenes y videos. Se utiliza en videollamadas y reuniones virtuales.','Entrada')">
+            <span class="emoji">📷</span>
+            <h3>Cámara web</h3>
+            <p>Captura imágenes</p>
+        </div>
+
+        <div class="part" onclick="detalle('Memoria USB','💾','Es un dispositivo de almacenamiento portátil que permite guardar y transportar archivos.','Almacenamiento')">
+            <span class="emoji">💾</span>
+            <h3>Memoria USB</h3>
+            <p>Guarda archivos</p>
+        </div>
+
+        <div class="part" onclick="detalle('Audífonos','🎧','Permiten escuchar sonidos de la computadora de manera individual.','Salida')">
+            <span class="emoji">🎧</span>
+            <h3>Audífonos</h3>
+            <p>Permiten escuchar</p>
+        </div>
+
+    </div>
+
+    <div class="detail" id="detalle">
+        <div class="big" id="detalleEmoji"></div>
+        <h3 id="detalleNombre"></h3>
+        <p id="detalleTexto"></p>
+        <p style="margin-top:10px">
+            <b>Tipo:</b> <span id="detalleTipo"></span>
+        </p>
+    </div>
+
+</section>
+
+<!-- FUNCIONES -->
+<section id="funciones" class="section">
+
+    <button class="back" onclick="mostrar('inicio')">← Volver</button>
+
+    <h2>📚 Funciones de las partes</h2>
+
+    <div class="info">
+        <h3>1. Dispositivos de entrada</h3>
+        <p>
+            Permiten introducir datos e instrucciones
+            a la computadora.
+        </p>
+        <b>Ejemplos:</b> teclado, mouse, micrófono
+        y cámara web.
+    </div>
+
+    <div class="info">
+        <h3>2. Dispositivos de salida</h3>
+        <p>
+            Permiten recibir información de la computadora.
+        </p>
+        <b>Ejemplos:</b> monitor, impresora y parlantes.
+    </div>
+
+    <div class="info">
+        <h3>3. Procesamiento</h3>
+        <p>
+            Se encarga de ejecutar instrucciones
+            y procesar los datos.
+        </p>
+        <b>Ejemplo:</b> CPU o procesador.
+    </div>
+
+    <div class="info">
+        <h3>4. Almacenamiento</h3>
+        <p>
+            Permite guardar información, documentos,
+            fotografías y programas.
+        </p>
+        <b>Ejemplos:</b> disco duro, SSD y memoria USB.
+    </div>
+
+</section>
+
+<!-- EVALUACIÓN -->
+<section id="evaluacion" class="section">
+
+    <button class="back" onclick="mostrar('inicio')">← Volver</button>
+
+    <h2>📝 Pon a prueba tus conocimientos</h2>
+
+    <p>Responde las siguientes preguntas.</p>
+
+    <div class="progress">
+        <div class="progress-bar" id="barra"></div>
+    </div>
+
+    <p id="contador" style="margin-bottom:12px">
+        Pregunta 1 de 10
+    </p>
+
+    <div id="quiz"></div>
+
+    <div id="result"></div>
+
+    <button class="action" id="siguiente"
+    onclick="siguientePregunta()" disabled>
+        Siguiente pregunta →
+    </button>
+
+    <button class="action" id="reiniciar"
+    onclick="iniciarQuiz()" style="display:none">
+        🔄 Volver a intentar
+    </button>
+
+</section>
+
+<!-- CONSEJOS -->
+<section id="consejos" class="section">
+
+    <button class="back" onclick="mostrar('inicio')">← Volver</button>
+
+    <h2>💡 Consejos para cuidar tu computadora</h2>
+
+    <div class="info">
+        <h3>🧹 1. Mantener limpia</h3>
+        <p>Limpia el equipo con cuidado y evita que acumule polvo.</p>
+    </div>
+
+    <div class="info">
+        <h3>💧 2. Evitar líquidos</h3>
+        <p>No coloques vasos con agua cerca de la computadora.</p>
+    </div>
+
+    <div class="info">
+        <h3>🔌 3. Cuidar los cables</h3>
+        <p>No jales ni dobles los cables de conexión.</p>
+    </div>
+
+    <div class="info">
+        <h3>🛡️ 4. Proteger la información</h3>
+        <p>Utiliza contraseñas seguras y evita archivos desconocidos.</p>
+    </div>
+
+    <div class="info">
+        <h3>⏻ 5. Apagar correctamente</h3>
+        <p>Apaga la computadora desde el sistema operativo.</p>
+    </div>
+
+</section>
+
+</main>
+
+<footer>
+    💻 Aprende Computación<br>
+    Educación tecnológica para todos
+</footer>
+
+</div>
+
+<script>
+
+// CAMBIAR SECCIONES
+function mostrar(id) {
+    document.querySelectorAll('.section').forEach(seccion => {
+        seccion.classList.remove('active');
+    });
+
+    document.getElementById(id).classList.add('active');
+
+    window.scrollTo({top: 0, behavior: 'smooth'});
+}
+
+// MOSTRAR INFORMACIÓN DE CADA PARTE
+function detalle(nombre, emoji, texto, tipo) {
+    document.getElementById('detalle').style.display = 'block';
+    document.getElementById('detalleEmoji').textContent = emoji;
+    document.getElementById('detalleNombre').textContent = nombre;
+    document.getElementById('detalleTexto').textContent = texto;
+    document.getElementById('detalleTipo').textContent = tipo;
+
+    document.getElementById('detalle').scrollIntoView({
+        behavior: 'smooth',
+        block: 'nearest'
+    });
+}
+
+// PREGUNTAS DEL CUESTIONARIO
+const preguntas = [
+    {
+        pregunta: "¿Qué parte permite observar imágenes y videos?",
+        opciones: ["Teclado", "Monitor", "Mouse"],
+        correcta: 1
+    },
+    {
+        pregunta: "¿Qué dispositivo utilizamos para escribir?",
+        opciones: ["Teclado", "Parlantes", "Impresora"],
+        correcta: 0
+    },
+    {
+        pregunta: "¿Qué dispositivo permite mover el puntero?",
+        opciones: ["Monitor", "Micrófono", "Mouse"],
+        correcta: 2
+    },
+    {
+        pregunta: "¿Qué dispositivo permite imprimir documentos?",
+        opciones: ["Impresora", "Teclado", "Cámara"],
+        correcta: 0
+    },
+    {
+        pregunta: "¿Qué dispositivo reproduce sonidos?",
+        opciones: ["Mouse", "Parlantes", "USB"],
+        correcta: 1
+    },
+    {
+        pregunta: "¿Cuál es un dispositivo de entrada?",
+        opciones: ["Monitor", "Impresora", "Micrófono"],
+        correcta: 2
+    },
+    {
+        pregunta: "¿Qué componente procesa instrucciones?",
+        opciones: ["CPU", "Parlantes", "Monitor"],
+        correcta: 0
+    },
+    {
+        pregunta: "¿Para qué sirve una memoria USB?",
+        opciones: ["Imprimir", "Guardar archivos", "Escuchar música"],
+        correcta: 1
+    },
+    {
+        pregunta: "¿Qué dispositivo permite capturar imágenes?",
+        opciones: ["Cámara web", "Teclado", "Impresora"],
+        correcta: 0
+    },
+    {
+        pregunta: "¿Qué debemos hacer para cuidar la computadora?",
+        opciones: [
+            "Derramar agua",
+            "Jalar los cables",
+            "Mantenerla limpia"
+        ],
+        correcta: 2
+    }
+];
+
+let indice = 0;
+let puntos = 0;
+let respondida = false;
+
+function iniciarQuiz() {
+    indice = 0;
+    puntos = 0;
+    respondida = false;
+
+    document.getElementById('result').textContent = '';
+    document.getElementById('reiniciar').style.display = 'none';
+    document.getElementById('siguiente').style.display = 'inline-block';
+
+    cargarPregunta();
+}
+
+function cargarPregunta() {
+    respondida = false;
+
+    const q = preguntas[indice];
+
+    document.getElementById('contador').textContent =
+        `Pregunta ${indice + 1} de ${preguntas.length}`;
+
+    document.getElementById('barra').style.width =
+        (indice / preguntas.length * 100) + '%';
+
+    document.getElementById('quiz').innerHTML = `
+        <div class="question">
+            <h3>${indice + 1}. ${q.pregunta}</h3>
+            ${q.opciones.map((opcion, i) => `
+                <button class="answer" onclick="responder(${i}, this)">
+                    ${String.fromCharCode(65 + i)}. ${opcion}
+                </button>
+            `).join('')}
+            <p id="mensaje" style="margin-top:12px;font-weight:bold"></p>
+        </div>
+    `;
+
+    document.getElementById('siguiente').disabled = true;
+    document.getElementById('siguiente').textContent =
+        indice === preguntas.length - 1
+        ? 'Ver mi resultado'
+        : 'Siguiente pregunta →';
+}
+
+function responder(opcion, boton) {
+    if (respondida) return;
+
+    respondida = true;
+
+    const correcta = preguntas[indice].correcta;
+    const botones = document.querySelectorAll('.answer');
+
+    botones.forEach((b, i) => {
+        b.disabled = true;
+        if (i === correcta) b.classList.add('correct');
+    });
+
+    const mensaje = document.getElementById('mensaje');
+
+    if (opcion === correcta) {
+        puntos++;
+        mensaje.textContent = '¡Muy bien! Respuesta correcta 🎉';
+        mensaje.style.color = 'green';
+    } else {
+        boton.classList.add('wrong');
+        mensaje.textContent = '¡Sigue aprendiendo! La respuesta correcta está en verde.';
+        mensaje.style.color = '#c0392b';
+    }
+
+    document.getElementById('siguiente').disabled = false;
+}
+
+function siguientePregunta() {
+    if (!respondida) return;
+
+    indice++;
+
+    if (indice < preguntas.length) {
+        cargarPregunta();
+    } else {
+        finalizarQuiz();
+    }
+}
+
+function finalizarQuiz() {
+    document.getElementById('quiz').innerHTML = '';
+    document.getElementById('contador').textContent = 'Evaluación terminada';
+    document.getElementById('barra').style.width = '100%';
+
+    let mensaje = '';
+
+    if (puntos >= 9) {
+        mensaje = '¡Excelente trabajo! 🏆';
+    } else if (puntos >= 7) {
+        mensaje = '¡Muy bien! Sigue practicando 🌟';
+    } else if (puntos >= 5) {
+        mensaje = '¡Buen esfuerzo! Puedes mejorar 📚';
+    } else {
+        mensaje = '¡Sigue aprendiendo! Tú puedes 💪';
+    }
+
+    document.getElementById('result').innerHTML =
+        `${mensaje}<br><br>Tu calificación es:<br>
+        ${puntos} de ${preguntas.length} respuestas correctas.`;
+
+    document.getElementById('siguiente').style.display = 'none';
+    document.getElementById('reiniciar').style.display = 'inline-block';
+}
+
+// INICIAR APLICACIÓN
+iniciarQuiz();
+
+</script>
+
+</body>
+</html>
